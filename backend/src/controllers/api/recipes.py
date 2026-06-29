@@ -5,7 +5,7 @@ router = APIRouter()
 recipes_service = RecipeService()
 
 @router.post("/start")
-def start_recipe(sabor: str, litragem: int):
-    response = recipes_service.start(sabor, litragem)
+def start_recipe(flavor: str, liters: int):
+    response = recipes_service.start(flavor, liters)
 
     return {"mensagem": f"Recipe enviado para o tópico"}

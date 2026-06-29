@@ -202,15 +202,15 @@
 
   <script>
     const flavors = [
-      { name: 'Coco', enabled: false },
-      { name: 'Morango', enabled: true },
-      { name: 'Maracujá', enabled: false },
-      { name: 'Melancia', enabled: false },
-      { name: 'Maçã Verde', enabled: false },
-      { name: 'Pêssego c/ Morango', enabled: false },
-      { name: 'Limão', enabled: false },
-      { name: 'Laranja', enabled: false },
-      { name: 'Pitaya', enabled: false },
+      { label: 'Coco', value: 'coconut', enabled: false },
+      { label: 'Morango', value: 'strawberry', enabled: true },
+      { label: 'Maracujá', value: 'passion_fruit', enabled: false },
+      { label: 'Melancia', value: 'watermelon', enabled: false },
+      { label: 'Maçã Verde', value: 'green_apple', enabled: false },
+      { label: 'Pêssego c/ Morango', value: 'peach', enabled: false },
+      { label: 'Limão', value: 'lemon', enabled: false },
+      { label: 'Laranja', value: 'orange', enabled: false },
+      { label: 'Pitaya', value: 'dragon_fruit', enabled: false },
     ];
 
     const grid = document.getElementById('flavor-grid');
@@ -224,7 +224,7 @@
     flavors.forEach(f => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.textContent = f.name;
+      btn.textContent = f.label;
       btn.className = 'flavor-btn';
       btn.disabled = !f.enabled;
 
@@ -232,7 +232,7 @@
         btn.addEventListener('click', () => {
           grid.querySelectorAll('.flavor-btn').forEach(b => b.classList.remove('selected'));
           btn.classList.add('selected');
-          selectedFlavor = f.name;
+          selectedFlavor = f.value;
           checkReady();
         });
       }
@@ -270,8 +270,8 @@
 
       try {
         const params = new URLSearchParams({
-          sabor: selectedFlavor,
-          litragem: parseInt(volInput.value)
+          flavor: selectedFlavor,
+          liters: parseInt(volInput.value)
         });
 
         const res = await fetch(

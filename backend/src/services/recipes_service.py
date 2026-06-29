@@ -1,18 +1,14 @@
-import json
 from src.config.mqtt import mqtt_client
 
 class RecipeService:
-    def start(self, sabor: str, litragem: int):
+    def start(self, flavor: str, liters: int):
         # Aqui no futuro você salvaria no banco de dados (MySQL)
 
-        grams = litragem * 15 # Formula teste
+        grams = liters * 15 # Formula teste
 
-        # Publica no MQTT
-        topic = f"factory/tanks/tank1/powder/command/target_grams"
-        mqtt_client.publish(topic, grams)
-
-        topic = f"factory/tanks/tank1/powder/command/run"
-        mqtt_client.publish(topic, 1) # Inicia o trabalho
+        topic = f"factory/recipes/{flavor}_doser/doser/cmd"
+        payload = f"START:{grams}"
+        mqtt_client.publish(topic, payload)
 
         # Retorna os dados para quem chamou (o Controller)
         return True
